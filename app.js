@@ -12,7 +12,14 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// make sure public is assigned as style path
+app.use(express.static('public'));
+
 app.get('/', (req, res) => {
+    res.render('home.ejs');
+});
+
+app.get('/gallery', (req, res) => {
     res.render('index.ejs');
 });
 

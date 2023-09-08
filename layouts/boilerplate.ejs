@@ -11,7 +11,13 @@
         <!-- stylesheet -->
     </head>
     <body>
+        <!-- start with a header, visible on every page -->
+        <%- include('../partials/header')%>
+
         <!-- input from views -->
         <%- body %>
+
+        <!-- end with a footer, visible on every page -->
+        <%- include('../partials/footer')%>
     </body>
 </html>
