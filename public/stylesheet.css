@@ -1,9 +1,9 @@
 /* give the body some height */
-body {
+/* body {
     min-height: 150vh;
     display: flex;
     flex-direction: column;
-}
+} */
 /* center navbar on big screens */
 @media (min-width: 576px) {
     .navigation {
@@ -21,7 +21,15 @@ body {
 #hometoabout {
     background: rgba(255,255,255,0.8);
 }
+/* give shop div on home page a white background */
+#hometoshop {
+    background:rgba(255,255,255,1.0);
+}
 /* set width home content */
 .container.homecontent {
-    width: 40em;
+    max-width: 40em;
+}
+/* make background footer white */
+.footer {
+    background: rgba(255,255,255,1.0);
 }
