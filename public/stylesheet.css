@@ -1,0 +1,12 @@
+body {
+    min-height: 150vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 576px) {
+    .navigation {
+        justify-content: center;
+        display: flex;
+    };
+}
