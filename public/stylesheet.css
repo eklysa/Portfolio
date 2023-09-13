@@ -4,26 +4,34 @@
     display: flex;
     flex-direction: column;
 } */
+body {
+    justify-content: center;
+}
 /* center navbar on big screens */
 @media (min-width: 576px) {
     .navigation {
         justify-content: center;
         display: flex;
-    };
+    }
 }
 
 /* make home background img stay at the back */
 #background {
     z-index: -1;
-    margin-top: -120px;
+    margin-top: 5em;
 }
 /* give about div on home page a see-through white background */
 #hometoabout {
     background: rgba(255,255,255,0.8);
 }
+/* give gallery div on home page a white background */
+#hometogallery {
+    background:rgba(255,255,255,1.0);
+}
+
 /* give shop div on home page a white background */
 #hometoshop {
-    background:rgba(255,255,255,1.0);
+    background:rgba(255,255,255,0.8);
 }
 /* set width home content */
 .container.homecontent {
@@ -31,5 +39,33 @@
 }
 /* make background footer white */
 .footer {
-    background: rgba(255,255,255,1.0);
+    background: rgba(255,255,255,0.8);
+}
+/* more space between nav-items */
+.nav-item {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+/* sizing carousel items home page */
+.carousel{ 
+    max-width: 20em;
+}
+
+/* carousel fade in fade out */
+.carousel-fade .carousel-item {
+	opacity: 0;
+	transition-duration: 4s;
+	transition-property: opacity;
+}
+
+.carousel-fade .carousel-item.active,
+.carousel-fade .carousel-item-next.carousel-item-left,
+.carousel-fade .carousel-item-prev.carousel-item-right {
+	opacity: 1;
+}
+
+.carousel-fade .active.carousel-item-left,
+.carousel-fade .active.carousel-item-right {
+	opacity: 0;
 }

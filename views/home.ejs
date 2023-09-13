@@ -3,11 +3,11 @@
 
 
 <!-- Add homepage image -->
-<img class="img-fluid sticky-top" id="background" src="images/background_v4.png">
+<img class="img-fluid fixed-top" id="background" src="images/background_v4.png">
 
 <!-- scroll down icon -->
-<div class="container-fluid text-center"> 
-    <i class="fa fa-angles-down fa-2xl mb-5"></i>
+<div class="container-fluid text-center mb-2 mb-md-5" id="arrowdown"> 
+    <i class="fa fa-angles-down fa-2xl"></i>
 </div>
 <!-- divs and links for the different pages -->
 <div class="container-fluid text-center" id="hometoabout">
@@ -21,8 +21,17 @@
 
 <div class="container-fluid text-center" id="hometogallery">
     <div class="container homecontent">
-        <h5>Gallery</h5>
-        <a href="/gallery"><button type="button" class="btn btn-outline-dark">Gallery</button></a>
+        <!-- gallery automatic slideshow -->
+        <div class="carousel slide mx-auto carousel-fade" data-ride="carousel" data-interval="5000" id="home-carousel">
+            <div class="carousel-inner ">
+                <% for (let i = 0; i < posts.length; i++) { %>
+                    <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                        <img class="d-block w-100 mt-5 mb-5" src="<%= posts[i].image %>" alt="<%= posts[i].alt %>">
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <a href="/gallery"><button type="button" class="btn btn-outline-dark mb-5">Gallery</button></a>
     </div>
 </div>
 
