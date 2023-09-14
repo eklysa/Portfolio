@@ -34,13 +34,22 @@
             console.log('there is a script here');
         </script>
         <!-- make icon y margin -->
-        <script >
+    <script>
+        // Function to update the margin-top when the page is resized
+        function updateMarginTop() {
             // Get the height of the #background element
             const backgroundHeight = document.getElementById('background').clientHeight;
 
             // Set the margin-top of the #arrowdown element
             document.getElementById('arrowdown').style.marginTop = backgroundHeight + 50 + 'px';
+        }
 
-        </script>
+        // Add an event listener to the window's resize event
+        window.addEventListener('resize', updateMarginTop);
+
+        // Call the function initially to set the margin-top when the page loads
+        updateMarginTop();
+    </script>
+
     </body>
 </html>
