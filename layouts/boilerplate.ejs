@@ -50,6 +50,12 @@
         // Call the function initially to set the margin-top when the page loads
         updateMarginTop();
     </script>
-
+    <!-- fix the active navbar link -->
+    <script>
+        $(document).ready(function() {
+            $('a.active').removeClass('active');
+            $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+        });
+    </script>
     </body>
 </html>

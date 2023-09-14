@@ -44,7 +44,8 @@ app.get('/', async(req, res, next) => {
 app.get('/gallery', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
-        res.render('index.ejs', {posts: posts});
+        const fineart = await Post.find({class: 'fine art'});
+        res.render('index.ejs', {posts: posts, fineart:fineart});
     } catch(err) {
         next(err);
     };

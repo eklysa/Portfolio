@@ -7,6 +7,9 @@
 body {
     justify-content: center;
 }
+a {
+    color: darkblue;
+}
 /* center navbar on big screens */
 @media (min-width: 576px) {
     .navigation {
@@ -36,6 +39,9 @@ body {
 /* set width home content */
 .container.homecontent {
     max-width: 40em;
+}
+.container.indexcontent {
+    max-width: 30em;
 }
 /* make background footer white */
 .footer {
@@ -68,4 +74,8 @@ body {
 .carousel-fade .active.carousel-item-left,
 .carousel-fade .active.carousel-item-right {
 	opacity: 0;
+}
+
+hr {
+    width: 20%;
 }
