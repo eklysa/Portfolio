@@ -48,7 +48,9 @@
             <% let poster_count = 0; %>
             <% for (let Post of posterart) { %>
                 <div class="col-md-4 mb-4">
-                    <img class="img-fluid index_image" src="<%= Post.compressed_thumbnail %>" alt="<%= Post.title %>">
+                    <a class="lightbox" href="#<%=Post.slug%>">
+                        <img class="img-fluid index_image" src="<%= Post.compressed_thumbnail %>" alt="<%= Post.title %>">
+                    </a>   
                 </div>
                 <% poster_count++; %>
                 <% if (poster_count % 3 === 0) { %>
@@ -58,3 +60,17 @@
         </div>
     </div>
 </div>
+
+<% for (let Post of fineart) { %> 
+    <div class="lightbox-target" id="<%=Post.slug%>">
+        <img src="<%=Post.image%>">
+        <a class="lightbox-close" href="#fineartheader"></a>
+    </div>
+<% } %>
+
+<% for (let Post of posterart) { %> 
+    <div class="lightbox-target" id="<%=Post.slug%>">
+        <img src="<%=Post.image%>">
+        <a class="lightbox-close" href="#posterartheader"></a>
+    </div>
+<% } %>
