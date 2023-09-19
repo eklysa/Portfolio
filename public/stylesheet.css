@@ -6,6 +6,7 @@
 } */
 html {  
     scroll-behavior: smooth;  
+    justify-content: center;
 }
 
 body {
@@ -112,6 +113,7 @@ hr {
     -o-transition: opacity .5s ease-in-out;
     transition: opacity .5s ease-in-out;
     overflow: hidden;
+    z-index: 2;
      
 }
 .lightbox-target img {
@@ -198,3 +200,40 @@ a.lightbox-close:after {
     top: 0;
 }
 
+#newBackground {
+    text-align: right;
+    position: fixed;
+    z-index: -1;
+}
+
+#newBackground img {
+    width: 90%;
+    margin-top: -80px;
+}
+/* #newBackground img {
+    width: 100%;
+    height: auto;
+} */
+@media (min-width: 576px) {
+    #newBackground img {
+        width: 80%;
+        margin-top: -40px;
+    }
+}
+@media (min-width: 768px) {
+    #newBackground img {
+        width: 70%;
+    }
+}
+
+@media (min-width: 992px) {
+    #newBackground img {
+        width: 60%;
+    }
+}
+
+@media (min-width: 1200px) {
+    #newBackground img {
+        width: 50%;
+    }
+}

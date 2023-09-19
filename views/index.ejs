@@ -4,28 +4,30 @@
 <!-- index page -->
 
 <!-- title -->
-<div class="container-fluid text-center">
+<div class="container-fluid text-center" id="galleryIntro">
     <div class="container indexcontent">
         <h4 class="mt-5">Illustrations</h4>`
         <p class="mb-5">Below you can find some of my fine art and poster illustrations. If you are interested in a certain bird don't hesitate to let me know! Al illustrations can be bought <span><a href='/#'>here</a></span>.</p>
+        <div class="container-fluid justify-content-between">
+            <a class="mr-3" href="#fineart"><button type="button" class="btn btn-outline-dark">Fine art</button></a>
+            <a class="ml-3" href="#posterart"><button type="button" class="btn btn-outline-dark">Posters</button></a>
+        </div>
     </div>
-    <div class="container-fluid justify-content-between">
-        <a class="mr-3" href="#fineartheader"><button type="button" class="btn btn-outline-dark">Fine art</button></a>
-        <a class="ml-3" href="#posterartheader"><button type="button" class="btn btn-outline-dark">Posters</button></a>
-    </div>
-    
+</div>
+<div class="container-fluid text-center" id="icon">
+    <i class="fa fa-angles-down fa-2xl"></i>
 </div>
 
 <!-- divs with fine art and illustrations to which you skip when clicking on the button above -->
 <div class="container-fluid text-center mt-5">
-    <h5 id="fineartheader">Fine Art</h5>
+    <h5 class="pt-5" id="fineart">Fine Art</h5>
     <hr>
     <div class="container homecontent">
         <!-- make sure that there is a new row div created for every 3 posts -->
         <div class="row">
             <% let fine_count = 0; %>
             <% for (let Post of fineart) { %>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-2">
                     <a class="lightbox" href="#<%=Post.slug%>">
                         <img class="img-fluid index_image" src="<%= Post.compressed_thumbnail %>" alt="<%= Post.title %>">
                     </a>
@@ -39,8 +41,8 @@
     </div>
 </div>
 
-<div class="container-fluid text-center mt-5">
-    <h5 id="posterartheader">Posters</h5>
+<div class="container-fluid text-center mt-2 pb-5">
+    <h5 class="pt-5" id="posterart">Posters</h5>
     <hr>
     <div class="container homecontent">
         <!-- make sure that there is a new row div created for every 3 posts -->
