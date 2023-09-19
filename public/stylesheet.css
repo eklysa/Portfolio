@@ -186,7 +186,7 @@ a.lightbox-close:after {
     opacity: 1;
     top: 0;
     bottom: 0;
-      overflow:scroll;
+    overflow:scroll;
 }
     
 .lightbox-target:target img {
@@ -197,3 +197,4 @@ a.lightbox-close:after {
 .lightbox-target:target a.lightbox-close {
     top: 0;
 }
+

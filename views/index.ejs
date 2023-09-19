@@ -60,17 +60,17 @@
         </div>
     </div>
 </div>
-
+<!-- MAKE SURE THAT THE IMAGES ARE COMPRESSED! CURRENTLY USING THUMBNAIL -->
 <% for (let Post of fineart) { %> 
     <div class="lightbox-target" id="<%=Post.slug%>">
-        <img src="<%=Post.image%>">
+        <img src="<%=Post.compressed_thumbnail%>"> 
         <a class="lightbox-close" href="#fineartheader"></a>
     </div>
 <% } %>
 
 <% for (let Post of posterart) { %> 
     <div class="lightbox-target" id="<%=Post.slug%>">
-        <img src="<%=Post.image%>">
+        <img src="<%=Post.compressed_thumbnail%>">
         <a class="lightbox-close" href="#posterartheader"></a>
     </div>
 <% } %>
