@@ -32,6 +32,9 @@ a {
 #hometoabout {
     background: rgba(255,255,255,0.8);
 }
+#arrowdown {
+    background: rgba(255,255,255,0.8);
+}
 /* give gallery div on home page a white background */
 #hometogallery {
     background:rgba(255,255,255,1.0);
