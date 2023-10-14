@@ -53,7 +53,7 @@
         function updateMarginTop() {
             const imageHeight = document.getElementById('newBackground').clientHeight;
             const navbarHeight = document.getElementById('navbar').clientHeight;
-            document.getElementById('arrowdown').style.marginTop = imageHeight +  20 + 'px';
+            document.getElementById('arrowdown').style.marginTop = imageHeight - 20 + 'px';
         }
         // Add an event listener to the window's resize event
         window.addEventListener('resize', updateMarginTop);
