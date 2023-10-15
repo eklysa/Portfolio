@@ -8,7 +8,8 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
-// const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
@@ -56,11 +57,38 @@ const sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
-}
-
+};
 app.use(session(sessionConfig));
 app.use(flash());
 
+// set up passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// set up passport local strategy, with username and password
+passport.use(new LocalStrategy(
+    (username, password, done) => {
+        const envUsername = process.env.USER;
+        const envPassword = process.env.PASSWORD;
+        if (username === envUsername && password === envPassword) {
+            return done(null, { id: 'your_user_id', username: envUsername });
+        } else {
+            return done(null, false, { message: 'Incorrect username or password' });
+        }
+    }
+));
+  
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser((id, done) => {
+    if (id === 'your_user_id') {
+      done(null, { id: 'your_user_id', username: process.env.USERNAME });
+    } else {
+      done(null, false);
+    }
+  });
 
 // routes
 app.get('/', async(req, res, next) => {
@@ -88,13 +116,28 @@ app.get('/contact', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-    req.flash('login', 'You must be logged in');
-    res.redirect('/login');
+    if (req.isAuthenticated()) {
+        res.render('admin.ejs', {messages: req.flash('succes')});
+    } else {
+        req.flash('error', 'You must be logged in');
+        res.redirect('/login');
+    }
 });
 
 app.get('/login', (req, res) => {
-    res.render('login', {messages: req.flash('login')});
+    const failureFlashMessage = req.flash('error');
+    res.render('login', {messages: failureFlashMessage});
 })
+
+app.post('/login', passport.authenticate('local', {
+    failureRedirect: '/login',   // Redirect back to the login page on failed login
+    failureFlash: true           // Enable flash messages for error  
+  }), (req, res) => {
+    req.flash('succes', 'you are logged in');
+    res.redirect('/admin');
+    
+  });
+
 // app.get('/flash', function(req, res){
 //     // Set a flash message by passing the key, followed by the value, to req.flash().
 //     req.flash('info', 'Flash is back!')
