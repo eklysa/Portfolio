@@ -7,6 +7,11 @@ const path = require('path');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const flash = require('express-flash');
+const cookieParser = require('cookie-parser');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const Post = require('./models/posts');
@@ -39,6 +44,39 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// use passport to manage site with admin interface
+// use session to stay logged in as admin
+app.use(cookieParser());
+app.use(session({ secret: process.env.session_key, resave: false, saveUninitialized: false }));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+// set up passport local strategy, with username and password
+passport.use(new LocalStrategy(
+    (username, password, done) => {
+        if (username === process.env.username && password === process.env.password) {
+            return done(null, user);
+        } else {
+            return done(null, false, {message: 'Incorrect username or password'});
+        }
+    }
+));
+// set up serialization and deserialization for session
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+// Replace this with your actual user retrieval logic
+    if (id === 'your_user_id') {
+        done(null, { id: 'your_user_id', username: 'your_username' });
+    } else {
+        done(null, false);
+    }
+});
+
+// routes
 app.get('/', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
@@ -62,6 +100,28 @@ app.get('/gallery', async(req, res, next) => {
 app.get('/contact', (req, res) => {
     res.render('contact.ejs');
 });
+
+app.get('/admin', (req, res) => {
+    req.flash('made it to admin page'); // Set the flash message
+    const myflash = req.flash('made it to admin page'); // Retrieve the flash message
+    console.log(myflash);
+    res.render('admin', { message: myflash });
+});
+
+app.get('/login', (req, res) => {
+    const myflash = req.flash('error')
+    console.log( myflash);
+    res.render('login', { message:  myflash});
+    
+  });
+
+app.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/admin',  // Redirect to the admin page on successful login
+    failureRedirect: '/login',     // Redirect back to the login page on failed login
+    failureFlash: true             // Enable flash messages for error
+  })
+);
 
 app.post('/', async(req, res, next) => {
     const name = req.body.name;
