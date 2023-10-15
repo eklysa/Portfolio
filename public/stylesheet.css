@@ -267,3 +267,10 @@ a.lightbox-close:after {
 h1, h2, h3, h4, h5 {
     color: #dd970b;
 }
+
+.flash {
+    text-align: center;
+    top: 0;
+    position: fixed;
+    z-index: 999;
+}

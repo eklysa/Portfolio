@@ -1,7 +1,13 @@
-<h1>Login</h1>
-  <% if (message) { %>
-    <p><%= message %></p>
-  <% } %>
+<!-- include standard layout -->
+<% layout('../layouts/boilerplate') %>
+
+<% if (messages) { %>
+  <div class="alert alert-warning flash container-fluid" role="alert">
+  <%= messages%>
+  </div>
+<% } %>
+<div class="container justify-content-center text-center">
+  <h1>Login</h1>
   <form method="post" action="/login">
     <div>
       <label for="username">Username:</label>
@@ -12,6 +18,7 @@
       <input type="password" id="password" name="password" required>
     </div>
     <div>
-      <button type="submit">Login</button>
+      <button type="btn submit">Login</button>
     </div>
   </form>
+</div>

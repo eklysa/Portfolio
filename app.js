@@ -6,6 +6,9 @@ const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const session = require('express-session');
+// const cookieParser = require('cookie-parser');
 const nodemailer = require('nodemailer');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
@@ -39,10 +42,31 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// set up session and flash
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
+const sessionConfig = {
+    name: 'session',
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        // secure: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+app.use(session(sessionConfig));
+app.use(flash());
+
+
+// routes
 app.get('/', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
-        res.render('home.ejs', {posts: posts});
+        res.render('home.ejs', {posts: posts, message: req.flash('success')});
     } catch (err) {
         next(err);
     };
@@ -62,6 +86,26 @@ app.get('/gallery', async(req, res, next) => {
 app.get('/contact', (req, res) => {
     res.render('contact.ejs');
 });
+
+app.get('/admin', (req, res) => {
+    req.flash('login', 'You must be logged in');
+    res.redirect('/login');
+});
+
+app.get('/login', (req, res) => {
+    res.render('login', {messages: req.flash('login')});
+})
+// app.get('/flash', function(req, res){
+//     // Set a flash message by passing the key, followed by the value, to req.flash().
+//     req.flash('info', 'Flash is back!')
+//     res.redirect('/test');
+//   });
+   
+//   app.get('/test', function(req, res){
+//     // Get an array of flash messages by passing the key to req.flash()
+//     res.render('test', { messages: req.flash('info') });
+//   });
+
 
 app.post('/', async(req, res, next) => {
     const name = req.body.name;
