@@ -1,0 +1,45 @@
+<!-- include standard layout -->
+<% layout('../layouts/boilerplate') %>
+<% if (messages) { %>
+    <div class="alert alert-warning flash container-fluid" role="alert">
+    <%= messages %>
+    <% console.log(messages)%>
+    </div>
+  <% } %>
+<div class="container-fluid indexcontent">
+    <h1 class="text-center">New post</h1>
+    <div class="col-6 offset-3">
+        <form class="mb-5" action="/admin" method="post">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id ="title" name = "post[title]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image URL</label>
+                <input class="form-control" type="text" id ="image" name = "post[image]" required>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="formFile" class="form-label">Image File</label>
+                <input class="form-control" type="file" id="formFile" name="post[img]">
+              </div> -->
+            <!-- <div class="mb-3">
+                <label class="form-label" for="alt">alt image text</label>
+                <input class="form-control" type="text" id ="alt" name = "post[alt]" required>
+            </div> -->
+            <div class="mb-3">
+                <label class="form-label" for="class">Class</label>
+                <select class="form-select" type = 'text' id ="class" name = "post[class]" required>
+                    <option selected>Choose a class type</option>
+                    <option value="fine art">fine art</option>
+                    <option value="poster art">poster art</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add post</button>
+            </div>
+        </form>
+        <a href="/admin"><button type="button" class="btn mb-5">Back to admin page</button></a>
+        <a href="/admin/edit"><button type="button" class="btn mb-5">Edit an image</button></a>
+        <a href="/admin/delete"><button type="button" class="btn mb-5">Delete an image</button></a>
+    </div>
+</div>

@@ -15,7 +15,6 @@ const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const Post = require('./models/posts');
 
-
 // get the database
 const DB_URL = 'mongodb://localhost:27017/heraldingbirds1';
 console.log(DB_URL);
@@ -117,12 +116,73 @@ app.get('/contact', (req, res) => {
 
 app.get('/admin', (req, res) => {
     if (req.isAuthenticated()) {
-        res.render('admin.ejs', {messages: req.flash('succes')});
+        // req.flash('success', 'you are logged in');
+        res.render('admin.ejs', {messages: req.flash('success')});
     } else {
         req.flash('error', 'You must be logged in');
         res.redirect('/login');
     }
 });
+// edit page
+app.get('/admin/edit', async(req, res, next) => {
+    try {
+        if (req.isAuthenticated()) {
+            const posts = await Post.find({})
+            res.render('edit.ejs', {posts: posts})
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }
+    } catch(err) {
+        next(err);
+    }
+});
+// edit put route
+// new page
+app.get('/admin/new', (req, res) => {
+    try {
+        if(req.isAuthenticated()) {
+            res.render('new', {messages: req.flash('error')});
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }
+    } catch(err) {
+        next(err)
+    }
+});
+// new post route
+app.post('/admin', async(req, res, next) => {
+    if(req.isAuthenticated()){
+        try{
+            const post = new Post(req.body.post);
+            console.log(post);
+            await post.save();
+            res.redirect('/gallery');
+        } catch(err){
+        next(err)
+        }   
+    } else {
+        req.flash('error', 'You must be logged in');
+        res.redirect('/login')
+    }
+});
+
+// delete page
+app.get('/admin/delete', async(req, res, next) => {
+    try {
+        if (req.isAuthenticated()) {
+            const posts = await Post.find({})
+            res.render('delete.ejs', {posts: posts})
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }
+    } catch(err) {
+        next(err);
+    }
+});
+// delete post route
 
 app.get('/login', (req, res) => {
     const failureFlashMessage = req.flash('error');
@@ -133,7 +193,7 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/login',   // Redirect back to the login page on failed login
     failureFlash: true           // Enable flash messages for error  
   }), (req, res) => {
-    req.flash('succes', 'you are logged in');
+    req.flash('success', 'you are logged in');
     res.redirect('/admin');
     
   });

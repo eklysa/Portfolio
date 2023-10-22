@@ -3,7 +3,17 @@
 
 <% if (messages) { %>
     <div class="alert alert-success flash container-fluid" role="alert">
-    <%= messages%>
+    <%= messages %>
+    <% console.log(messages)%>
     </div>
   <% } %>
-<h1>You made it to the admin page</h1>
+
+<div class="container indexcontent mt-5 mb-5">
+<!-- create a new post link -->
+  <a href="/admin/new"><button type="button" class="btn mb-5">Create a new image</button></a>
+<!-- edit a post link -->
+  <a href="/admin/edit"><button type="button" class="btn mb-5">Edit an image</button></a>
+<!-- delete a post link -->
+  <a href="/admin/delete"><button type="button" class="btn mb-5">Delete an image</button></a>
+</div>
+
