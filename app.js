@@ -145,11 +145,15 @@ app.get('/admin/edit', async(req, res, next) => {
 // edit 1 post
 app.get('/admin/:slug/edit', async(req, res, next) => {
     try {
-        const post = await Post.findOne({slug : req.params.slug});
-        if(!post){
-            return res.redirect('/admin/edit');
-        };
-        res.render('editpost', {Post:post});
+        if (isAuthenticated()) {
+            const post = await Post.findOne({slug : req.params.slug});
+            if(!post){
+                return res.redirect('/admin/edit');
+            };
+            res.render('editpost', {Post:post});
+        } else {
+            
+        } 
     } catch {
         next(err);
     }
@@ -157,10 +161,15 @@ app.get('/admin/:slug/edit', async(req, res, next) => {
 // edit put route
 app.put('/admin/:slug', async(req, res, next) => {
     try {
-        const {slug} = req.params;
-        const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
-        req.flash('success', 'post updated');
-        res.redirect('/admin/edit');
+        if (isAuthenticated()) {
+            const {slug} = req.params;
+            const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
+            req.flash('success', 'post updated');
+            res.redirect('/admin/edit');
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }   
     } catch(err) {
         next(err)
     }
@@ -199,13 +208,30 @@ app.post('/admin', async(req, res, next) => {
 app.get('/admin/delete', async(req, res, next) => {
     try {
         if (req.isAuthenticated()) {
-            const posts = await Post.find({})
+            const posts = await Post.find({}).sort({_id: -1})
             res.render('delete.ejs', {posts: posts})
         } else {
             req.flash('error', 'You must be logged in');
             res.redirect('/login');
         }
     } catch(err) {
+        next(err);
+    }
+});
+// delete one page
+app.get('/admin/:slug/delete', async(req, res, next) => {
+    try {
+        if (isAuthenticated()) {
+            const post = await Post.findOne({slug : req.params.slug});
+            if(!post){
+                return res.redirect('/admin/delete');
+            };
+            res.render('deletepost', {Post:post});
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }  
+    } catch {
         next(err);
     }
 });
