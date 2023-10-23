@@ -145,7 +145,7 @@ app.get('/admin/edit', async(req, res, next) => {
 // edit 1 post
 app.get('/admin/:slug/edit', async(req, res, next) => {
     try {
-        if (isAuthenticated()) {
+        if (req.isAuthenticated()) {
             const post = await Post.findOne({slug : req.params.slug});
             if(!post){
                 return res.redirect('/admin/edit');
@@ -161,7 +161,7 @@ app.get('/admin/:slug/edit', async(req, res, next) => {
 // edit put route
 app.put('/admin/:slug', async(req, res, next) => {
     try {
-        if (isAuthenticated()) {
+        if (req.isAuthenticated()) {
             const {slug} = req.params;
             const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
             req.flash('success', 'post updated');
@@ -209,7 +209,7 @@ app.get('/admin/delete', async(req, res, next) => {
     try {
         if (req.isAuthenticated()) {
             const posts = await Post.find({}).sort({_id: -1})
-            res.render('delete.ejs', {posts: posts})
+            res.render('delete.ejs', {posts: posts, messages: req.flash('error')});
         } else {
             req.flash('error', 'You must be logged in');
             res.redirect('/login');
@@ -221,7 +221,7 @@ app.get('/admin/delete', async(req, res, next) => {
 // delete one page
 app.get('/admin/:slug/delete', async(req, res, next) => {
     try {
-        if (isAuthenticated()) {
+        if (req.isAuthenticated()) {
             const post = await Post.findOne({slug : req.params.slug});
             if(!post){
                 return res.redirect('/admin/delete');
@@ -231,11 +231,32 @@ app.get('/admin/:slug/delete', async(req, res, next) => {
             req.flash('error', 'You must be logged in');
             res.redirect('/login');
         }  
-    } catch {
+    } catch(err) {
         next(err);
     }
 });
 // delete post route
+app.delete('/admin/:slug', async(req, res, next) => {
+    try {
+        if(req.isAuthenticated()) {
+            const post = await Post.deleteOne({slug: req.params.slug});
+            if (post.deletedCount === 1) {
+                console.log("Successfully deleted one document.");
+                req.flash('success', 'deleted one post');
+                res.redirect('/admin/delete');
+              } else {
+                console.log("No documents matched the query. Deleted 0 documents.");
+                req.flash('error', 'no document deleted');
+                res.redirect(`admin/${post.slug}/delete`);
+              }
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }
+    } catch(err) {
+        next(err);
+    }
+});
 
 app.get('/login', (req, res) => {
     const failureFlashMessage = req.flash('error');

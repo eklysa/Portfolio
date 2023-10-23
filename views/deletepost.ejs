@@ -4,7 +4,7 @@
 <div class="container-fluid indexcontent">
     <h1 class="text-center">Delete post: <%=Post.title%></h1>
     <div class="col-6 offset-3">
-        <form class="mb-5" action="/admin/<%=Post.slug%>?_method=PUT" method="post">
+        <form class="mb-5" action="/admin/<%=Post.slug%>?_method=DELETE" method="post">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id ="title" name = "post[title]" value = "<%=Post.title%>" required>
