@@ -133,7 +133,7 @@ app.get('/admin/edit', async(req, res, next) => {
     try {
         if (req.isAuthenticated()) {
             const posts = await Post.find({}).sort({_id: -1})
-            res.render('edit.ejs', {posts: posts})
+            res.render('edit.ejs', {posts: posts , messages: req.flash('success')})
         } else {
             req.flash('error', 'You must be logged in');
             res.redirect('/login');
@@ -143,7 +143,7 @@ app.get('/admin/edit', async(req, res, next) => {
     }
 });
 // edit 1 post
-app.get('/admin/edit/:slug', async(req, res, next) => {
+app.get('/admin/:slug/edit', async(req, res, next) => {
     try {
         const post = await Post.findOne({slug : req.params.slug});
         if(!post){
@@ -155,6 +155,16 @@ app.get('/admin/edit/:slug', async(req, res, next) => {
     }
 });
 // edit put route
+app.put('/admin/:slug', async(req, res, next) => {
+    try {
+        const {slug} = req.params;
+        const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
+        req.flash('success', 'post updated');
+        res.redirect('/admin/edit');
+    } catch(err) {
+        next(err)
+    }
+});
 // new page
 app.get('/admin/new', (req, res) => {
     try {
