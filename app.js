@@ -13,6 +13,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const Post = require('./models/posts');
 
 // get the database
@@ -37,6 +38,10 @@ const app = express();
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// allow put and delete routes
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 // make sure public is assigned as style path
 app.use(express.static('public'));
@@ -127,13 +132,25 @@ app.get('/admin', (req, res) => {
 app.get('/admin/edit', async(req, res, next) => {
     try {
         if (req.isAuthenticated()) {
-            const posts = await Post.find({})
+            const posts = await Post.find({}).sort({_id: -1})
             res.render('edit.ejs', {posts: posts})
         } else {
             req.flash('error', 'You must be logged in');
             res.redirect('/login');
         }
     } catch(err) {
+        next(err);
+    }
+});
+// edit 1 post
+app.get('/admin/edit/:slug', async(req, res, next) => {
+    try {
+        const post = await Post.findOne({slug : req.params.slug});
+        if(!post){
+            return res.redirect('/admin/edit');
+        };
+        res.render('editpost', {Post:post});
+    } catch {
         next(err);
     }
 });
