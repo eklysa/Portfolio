@@ -7,11 +7,11 @@
         <form class="mb-5" action="/admin/<%=Post.slug%>?_method=DELETE" method="post">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id ="title" name = "post[title]" value = "<%=Post.title%>" required>
+                <input class="form-control" type="text" id ="title" name = "post[title]" value = "<%=Post.title%>" readonly>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="image">Image URL</label>
-                <input class="form-control" type="text" id ="image" name = "post[image]" value="<%=Post.image%>" required>
+                <input class="form-control" type="text" id ="image" name = "post[image]" value="<%=Post.image%>" readonly>
             </div>
             <!-- <div class="mb-3">
                 <label for="formFile" class="form-label">Image File</label>
@@ -23,14 +23,12 @@
             </div> -->
             <div class="mb-3">
                 <label class="form-label" for="class">Class</label>
-                <select class="form-select" type = 'text' id ="class" name = "post[class]" required>
+                <select class="form-select" type = 'text' id ="class" name = "post[class]" readonly>
                     <option selected value="<%=Post.class%>"><%=Post.class%></option>
-                    <option value="fine art">fine art</option>
-                    <option value="poster art">poster art</option>
                 </select>
             </div>
             <div class="mb-3">
-                <button class="btn btn-success">Delete post</button>
+                <button class="btn btn-danger">Delete post</button>
             </div>
         </form>
         <a href="/admin"><button type="button" class="btn mb-5">Back to admin page</button></a>
