@@ -1,5 +1,2 @@
-create a homepage, with some highlights
-create a portfolio page with 3 works next to each other, with a lot of space in between
-if you click on a work, create slideshow of everything
-
-start with the index page
+fix homepage layout to be more like gallery
+upload file instead of url

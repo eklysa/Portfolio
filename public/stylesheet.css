@@ -254,18 +254,21 @@ a.lightbox-close:after {
 }
 
 .btn {
-    background-color: #dd970b;
-    border-color: #dd970b;
+    background-color: #e08916;
+    border-color: #e08916;
     color: white;
 }
-
+#deleteButton {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
 .btn:hover, .btn:focus .btn:active {
     background-color:#b07808;
     border-color: #b07808;
 }
 
 h1, h2, h3, h4, h5 {
-    color: #dd970b;
+    color: #e08916;
 }
 
 .flash {
