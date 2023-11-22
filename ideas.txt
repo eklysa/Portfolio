@@ -1,2 +1,3 @@
 fix homepage layout to be more like gallery
 upload file instead of url
+fix url errors, go back to homepage

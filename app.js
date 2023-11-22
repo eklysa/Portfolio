@@ -98,7 +98,8 @@ passport.use(new LocalStrategy(
 app.get('/', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
-        res.render('home.ejs', {posts: posts, message: req.flash('success')});
+        const shuffledPosts = shuffle(posts);
+        res.render('home.ejs', {posts: shuffledPosts, message: req.flash('success')});
     } catch (err) {
         next(err);
     };
@@ -323,3 +324,14 @@ app.post('/', async(req, res, next) => {
 app.listen(3000, () => {
     console.log('Serving on port 3000');
 });
+
+// functions
+// Function to shuffle the array
+function shuffle(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  }
