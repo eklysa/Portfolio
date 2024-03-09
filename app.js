@@ -1,6 +1,8 @@
 // get dotenv info
-require('dotenv').config();
-
+// require('dotenv').config();
+if(process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
 // variables
 const express = require('express');
 const path = require('path');
@@ -8,6 +10,7 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const MongoDBStore = require("connect-mongo")(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer');
@@ -20,7 +23,7 @@ const upload = require('./models/upload');
 const ExpressError = require('./utils/ExpressError');
 
 // get the database
-const DB_URL = 'mongodb://localhost:27017/heraldingbirds1';
+const DB_URL = process.env.DBURL || 'mongodb://localhost:27017/heraldingbirds1';
 console.log(DB_URL);
 mongoose.connect(DB_URL, {
     useNewUrlParser: true,
@@ -51,9 +54,19 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // set up session and flash
-const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+const secret = process.env.SessionSECRET || 'thisshouldbeabettersecret!';
+const store = new MongoDBStore({
+    url: DB_URL,
+    secret: secret,
+    touchAfter: 24 * 3600
+});
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e);
+});
 
 const sessionConfig = {
+    store,
     name: 'session',
     secret,
     resave: false,
