@@ -1,9 +1,3 @@
-/* give the body some height */
-/* body {
-    min-height: 150vh;
-    display: flex;
-    flex-direction: column;
-} */
 html {  
     scroll-behavior: smooth;  
     justify-content: center;
@@ -11,9 +5,6 @@ html {
 
 body {
     justify-content: center;
-}
-a {
-    color: darkblue;
 }
 /* center navbar on big screens */
 @media (min-width: 576px) {
@@ -23,35 +14,87 @@ a {
     }
 }
 
-/* make home background img stay at the back */
-#background {
-    z-index: -1;
-    margin-top: 5em;
-}
-/* give about div on home page a see-through white background */
-#hometoabout {
-    background: rgba(255,255,255,0.8);
-}
-#arrowdown {
-    background: rgba(255,255,255,0.8);
-}
-/* give gallery div on home page a white background */
-#hometogallery {
-    background:rgba(255,255,255,1.0);
-    margin-bottom: 6em;
+/* #headerDiv {
+    width: 100vw;
+    height:100vh;
+    margin: 0 auto;
+} */
+.navigation {
+    position:absolute;
+    margin:auto;
+    left: 0;
+    right: 0;
+    z-index:99;
 }
 
-/* give shop div on home page a white background */
-#hometoshop {
-    background:rgba(255,255,255,0.8);
-    margin-bottom: 6em;
+
+#newBackground img {
+    max-width: 80%;
+}
+
+#newBackground {
+    opacity:0.4;
+    z-index:-1;
+    text-align: right;
+    position: fixed;
+    margin-top: 2em;
+}
+
+#galleryIntro {
+    position:relative;
+    padding-top: 40%;
+    height: 100vh;
+}
+#contactdiv {
+    padding-top: 40%;
+    height: 100vh;
+    padding-bottom:40%;
+}
+.footer {
+    margin-top: 30%;
+    margin-bottom: 5%;
+}
+@media(min-width:576px){
+    #newBackground img {
+        max-width: 70%;
+    }
+    #newBackground {
+        margin-top: 3em;
+    }
+    #galleryIntro {
+        padding-top:30%;
+    }
+    #contactdiv {
+        padding-top:30%;
+    }
+    .footer {
+        margin-top:20%;
+    }
+}
+@media(min-width:768px){
+    #galleryIntro {
+        padding-top:15%;
+    }
+    #contactdiv {
+        padding-top:15%;
+    }
+    .footer {
+        margin-top:5%;
+    }
+}
+
+
+/* contact form styling */
+#contactForm {
+    background: white;
+    text-align: center;
+    margin-bottom: 30em;
+    border-radius: 3%;
+    border-color: grey;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 /* set width home content */
 .container.homecontent {
-    max-width: 50em;
-}
-
-#hometogallery .container.homecontent {
     max-width: 50em;
 }
 .container.indexcontent {
@@ -61,9 +104,7 @@ a {
     max-width: 40em;
 }
 /* make background footer white */
-.footer {
-    background: rgba(255,255,255,0.8);
-}
+
 /* more space between nav-items */
 .nav-item {
     margin-left: 2em;
@@ -73,34 +114,10 @@ a {
 span a {
     color: #e08916;
 }
-/* sizing carousel items home page
-.carousel{ 
-    max-width: 15em;
-}
-
-/* carousel fade in fade out */
-/* .carousel-fade .carousel-item {
-	opacity: 0;
-	transition-duration: 4s;
-	transition-property: opacity;
-} */
-
-/* .carousel-fade .carousel-item.active,
-.carousel-fade .carousel-item-next.carousel-item-left,
-.carousel-fade .carousel-item-prev.carousel-item-right {
-	opacity: 1;
-} */
-
-/* .carousel-fade .active.carousel-item-left,
-.carousel-fade .active.carousel-item-right {
-	opacity: 0;
-}  */
 
 hr {
     width: 20%;
 }
-
-/* make sure hovering effect when hovering over image */
 .index_image {
     width: 100%;
     height: 100%;
@@ -109,6 +126,22 @@ hr {
     transition: .5s ease;
     backface-visibility: hidden;
 }
+
+#profilePicture {
+    margin-bottom: 5%;
+        width: 120px;
+        height: 120px;
+}
+
+/* make sure hovering effect when hovering over image */
+@media (min-width:576px) {
+    #profilePicture { 
+        width: 140px;
+        height: 140px;
+    }
+
+}
+
 .col-md-4:hover .index_image {
     opacity: 0.3;
 }
@@ -215,55 +248,6 @@ a.lightbox-close:after {
     top: 0;
 }
 
-#newBackground {
-    text-align: right;
-    position: fixed;
-    margin-top:-40px;
-    z-index: -1;
-}
-
-#newBackground img {
-    width: 90%;
-    margin-top: -80px;
-}
-/* #newBackground img {
-    width: 100%;
-    height: auto;
-} */
-@media (min-width: 576px) {
-    #newBackground img {
-        width: 80%;
-        margin-top: -40px;
-    }
-}
-@media (min-width: 768px) {
-    #newBackground img {
-        width: 70%;
-    }
-}
-
-@media (min-width: 992px) {
-    #newBackground img {
-        width: 60%;
-    }
-}
-
-@media (min-width: 1200px) {
-    #newBackground img {
-        width: 50%;
-    }
-}
-
-/* contact form styling */
-#contactForm {
-    background: white;
-    text-align: center;
-    margin-top: 5em;
-    margin-bottom: 30em;
-    border-radius: 3%;
-    border-color: grey;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
 
 .btn {
     background-color: #e08916;
@@ -288,137 +272,4 @@ h1, h2, h3, h4, h5 {
     top: 0;
     position: fixed;
     z-index: 999;
-}
-
-/* carousel tryout 2 */
-/*
-    code by Iatek LLC 2018 - CC 2.0 License - Attribution required
-    code customized by Azmind.com
-*/
-@media (min-width: 768px) and (max-width: 991px) {
-    /* Show 4th slide on md if col-md-4*/
-    .carousel-inner .active.col-md-4.carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: absolute;
-        top: 0;
-        right: -33.3333%;  /*change this with javascript in the future*/
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-}
-@media (min-width: 576px) and (max-width: 768px) {
-    /* Show 3rd slide on sm if col-sm-6*/
-    .carousel-inner .active.col-sm-6.carousel-item + .carousel-item + .carousel-item {
-        position: absolute;
-        top: 0;
-        right: -50%;  /*change this with javascript in the future*/
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-}
-@media (min-width: 576px) {
-    .carousel-item {
-        margin-right: 0;
-    }
-    /* show 2 items */
-    .carousel-inner .active + .carousel-item {
-        display: block;
-    }
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item {
-        transition: none;
-    }
-    .carousel-inner .carousel-item-next {
-        position: relative;
-        transform: translate3d(0, 0, 0);
-    }
-    /* left or forward direction */
-    .active.carousel-item-left + .carousel-item-next.carousel-item-left,
-    .carousel-item-next.carousel-item-left + .carousel-item,
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-    /* farthest right hidden item must be also positioned for animations */
-    .carousel-inner .carousel-item-prev.carousel-item-right {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-    /* right or prev direction */
-    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
-    .carousel-item-prev.carousel-item-right + .carousel-item,
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(100%, 0, 0);
-        visibility: visible;
-        display: block;
-        visibility: visible;
-    }
-}
-/* MD */
-@media (min-width: 768px) {
-    /* show 3rd of 3 item slide */
-    .carousel-inner .active + .carousel-item + .carousel-item {
-        display: block;
-    }
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item {
-        transition: none;
-    }
-    .carousel-inner .carousel-item-next {
-        position: relative;
-        transform: translate3d(0, 0, 0);
-    }
-    /* left or forward direction */
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-    /* right or prev direction */
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(100%, 0, 0);
-        visibility: visible;
-        display: block;
-        visibility: visible;
-    }
-}
-/* LG */
-@media (min-width: 991px) {
-    /* show 4th item */
-    .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
-        display: block;
-    }
-    .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
-        transition: none;
-    }
-    /* Show 5th slide on lg if col-lg-3 */
-    .carousel-inner .active.col-lg-3.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: absolute;
-        top: 0;
-        right: -25%;  /*change this with javascript in the future*/
-        z-index: -1;
-        display: block;
-        visibility: visible;
-    }
-    /* left or forward direction */
-    .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-    /* right or prev direction //t - previous slide direction last item animation fix */
-    .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
-        position: relative;
-        transform: translate3d(100%, 0, 0);
-        visibility: visible;
-        display: block;
-        visibility: visible;
-    }
 }

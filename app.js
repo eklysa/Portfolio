@@ -303,7 +303,7 @@ app.post('/', async(req, res, next) => {
     try {
         // create email transporter
         const transporter = nodemailer.createTransport({
-            service: 'hotmail',
+            service: 'gmail',
             auth: {
                 user: process.env.my_email,
                 pass: process.env.my_password,

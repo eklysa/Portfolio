@@ -1,7 +1,5 @@
-fix homepage layout to be more like gallery, check
-upload file instead of url , check
-fix url errors, go back to homepage, check
-look at responsiveness check
-make span oranges check
-delete home page, make gallery home page check
-add photo to contact page check
+extra small screen: make images smaller -check
+fix the toggle button -check
+extra small screen - decrease space beteen profile picture and text -check
+logo on tab -check
+check if contact form works
