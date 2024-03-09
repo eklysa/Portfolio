@@ -1,7 +1,13 @@
 <% layout('../layouts/boilerplate') %>
-  
+
+<% if (messages && messages.length > 0) { %>
+    <div class="alert alert-warning flash container-fluid" role="alert">
+      <%= messages %>
+    </div>
+<% } %>
+ 
 <div class="container-fluid text-center mt-5">
-    <h5 class="pt-5" id="fineart">Fine Art</h5>
+    <h5 class="pt-5" id="fineart">All posts</h5>
     <hr>
     <div class="container homecontent">
         <!-- make sure that there is a new row div created for every 3 posts -->

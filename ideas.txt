@@ -1,3 +1,7 @@
-fix homepage layout to be more like gallery
-upload file instead of url
-fix url errors, go back to homepage
+fix homepage layout to be more like gallery, check
+upload file instead of url , check
+fix url errors, go back to homepage, check
+look at responsiveness check
+make span oranges check
+delete home page, make gallery home page check
+add photo to contact page check

@@ -8,8 +8,10 @@
 <!-- title -->
 <div class="container-fluid text-center" id="galleryIntro">
     <div class="container indexcontent">
-        <h4 class="mt-5">Illustrations</h4>
-        <p class="mb-5">Here you can find some of my fine art and poster illustrations. If you are interested in a certain bird don't hesitate to let me know! Al illustrations can be bought <span><a href='https://www.etsy.com/shop/HeraldingBirds' target="_blank">here</a></span>.</p>
+        <!-- <h4 class="mt-5">Illustrations</h4> -->
+        <!-- <p class="mb-5">Here you can find some of my fine art and poster illustrations. If you are interested in a certain bird don't hesitate to let me know! Al illustrations can be bought <span><a href='https://www.etsy.com/shop/HeraldingBirds' target="_blank">here</a></span>.</p> -->
+        <img class="mb-5 mt-5 rounded-circle" src="/images/profielfoto.jpg" width="140" height="140" alt="Sylke Angenent" style="opacity:0.8;">
+        <p class="mb-5">As an illustrator passionate about nature, I use both traditional and digital techniques in my illustrations to visualize the beautiful patterns that can be discovered in bird plumage. If you are interested in a certain bird don't hesitate to let me know! Al illustrations can be bought <span><a href='https://www.etsy.com/shop/HeraldingBirds' target="_blank">here</a></span>.</p>
         <div class="container-fluid justify-content-between">
             <a class="mr-3" href="#fineart"><button type="button" class="btn btn-outline-dark">Fine art</button></a>
             <a class="ml-3" href="#posterart"><button type="button" class="btn btn-outline-dark">Posters</button></a>
@@ -21,7 +23,7 @@
 </div>
 
 <!-- divs with fine art and illustrations to which you skip when clicking on the button above -->
-<div class="container-fluid text-center mt-5">
+<div class="container-fluid text-center mt-5 pb-5">
     <h5 class="pt-5" id="fineart">Fine Art</h5>
     <hr>
     <div class="container homecontent">
@@ -29,21 +31,21 @@
         <div class="row">
             <% let fine_count = 0; %>
             <% for (let Post of fineart) { %>
-                <div class="col-md-4 mb-2">
+                <div class="col-md-4 col-sm-6  col-xl-3 mb-2">
                     <a class="lightbox" href="#<%=Post.slug%>">
                         <img class="img-fluid index_image" src="<%= Post.image %>" alt="<%= Post.title %>">
                     </a>
                 </div>
-                <% fine_count++; %>
-                <% if (fine_count % 3 === 0) { %>
+                <!-- <% fine_count++; %>
+                <% if (fine_count % 4 === 0) { %>
                     </div><div class="row">
-                <% } %>
+                <% } %> -->
             <% } %>
         </div>
     </div>
 </div>
 
-<div class="container-fluid text-center mt-2 pb-5">
+<div class="container-fluid text-center pt-5 mb-5 pb-5">
     <h5 class="pt-5" id="posterart">Posters</h5>
     <hr>
     <div class="container homecontent">
@@ -51,15 +53,15 @@
         <div class="row">
             <% let poster_count = 0; %>
             <% for (let Post of posterart) { %>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 col-sm-6 col-xl-3 mb-4">
                     <a class="lightbox" href="#<%=Post.slug%>">
                         <img class="img-fluid index_image" src="<%= Post.image %>" alt="<%= Post.title %>">
                     </a>   
                 </div>
-                <% poster_count++; %>
-                <% if (poster_count % 3 === 0) { %>
+                <!-- <% poster_count++; %>
+                <% if (poster_count % 4 === 0) { %>
                     </div><div class="row">
-                <% } %>
+                <% } %> -->
             <% } %>
         </div>
     </div>

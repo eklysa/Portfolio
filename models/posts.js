@@ -55,7 +55,8 @@ const PostSchema = new Schema({
   image: String,
   alt: String,
   class: String,
-  slug: String
+  slug: String,
+  file: String
 });
 
 // Pre-save middleware to generate the slug based on the title

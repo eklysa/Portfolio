@@ -2,6 +2,11 @@
 <!-- include standard layout -->
 <% layout('../layouts/boilerplate') %>
 
+<% if (messages && messages.length > 0) { %>
+    <div class="alert alert-success flash container-fluid" role="alert">
+      <%= messages %>
+    </div>
+<% } %>
 <!-- Add homepage image -->
 <!-- <div class="container-fluid text-end fixed-top pr-0 pl-0">
     <img id="background" src="images/background_v5.png">
@@ -17,7 +22,8 @@
 <div class="container-fluid text-center" id="galleryIntro">
     <div class="container homecontent">
         <h4 class="mt-5">Aspiring bird artist based in the Netherlands. </h4>
-        <p class="mb-5">As an illustrator with a great love for nature, I use both traditional and digital techniques in my illustrations to visualize the beautiful patterns that can be discovered in bird plumage.My aim is to encourage people to observe nature with a more attentive eye and to find themselves fascinated by avian inhabitants of our planet. </p>
+        <!-- <p class="mb-5">As an illustrator with a great love for nature, I use both traditional and digital techniques in my illustrations to visualize the beautiful patterns that can be discovered in bird plumage.My aim is to encourage people to observe nature with a more attentive eye and to find themselves fascinated by avian inhabitants of our planet. </p> -->
+        <p class="mb-5">As an illustrator passionate about nature, I use both traditional and digital techniques in my illustrations to visualize the beautiful patterns that can be discovered in bird plumage. My aim is to encourage people to observe nature with a more attentive eye and to find themselves fascinated by the small birds in their backyard or the flocks flying past.</p>
         <a class="mt-2" href="/contact"><button type="button" class="btn ">Contact</button></a>
     </div>
 </div> 

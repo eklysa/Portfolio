@@ -48,14 +48,17 @@ a {
 }
 /* set width home content */
 .container.homecontent {
-    max-width: 40em;
+    max-width: 50em;
 }
 
 #hometogallery .container.homecontent {
     max-width: 50em;
 }
 .container.indexcontent {
-    max-width: 30em;
+    max-width: 40em;
+}
+.container.contactcontent {
+    max-width: 40em;
 }
 /* make background footer white */
 .footer {
@@ -67,6 +70,9 @@ a {
     margin-right: 2em;
 }
 
+span a {
+    color: #e08916;
+}
 /* sizing carousel items home page
 .carousel{ 
     max-width: 15em;

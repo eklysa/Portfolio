@@ -1,11 +1,11 @@
 <!-- include standard layout -->
 <% layout('../layouts/boilerplate') %>
-<% if (messages) { %>
+
+<% if (messages && messages.length > 0) { %>
     <div class="alert alert-warning flash container-fluid" role="alert">
-    <%= messages %>
-    <% console.log(messages)%>
+      <%= messages %>
     </div>
-  <% } %>
+<% } %>
   
 <div class="container-fluid text-center mt-5">
     <h5 class="pt-5" id="fineart">Fine Art</h5>

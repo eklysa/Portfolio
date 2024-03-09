@@ -15,6 +15,9 @@ const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const Post = require('./models/posts');
+const multer = require('multer');
+const upload = require('./models/upload');
+const ExpressError = require('./utils/ExpressError');
 
 // get the database
 const DB_URL = 'mongodb://localhost:27017/heraldingbirds1';
@@ -81,6 +84,7 @@ passport.use(new LocalStrategy(
         }
     }
 ));
+
   
   passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -95,17 +99,17 @@ passport.use(new LocalStrategy(
   });
 
 // routes
-app.get('/', async(req, res, next) => {
-    try {
-        const posts = await Post.find({}).sort({_id: -1});
-        const shuffledPosts = shuffle(posts);
-        res.render('home.ejs', {posts: shuffledPosts, message: req.flash('success')});
-    } catch (err) {
-        next(err);
-    };
-});
+// app.get('/', async(req, res, next) => {
+//     try {
+//         const posts = await Post.find({}).sort({_id: -1});
+//         const shuffledPosts = shuffle(posts);
+//         res.render('home.ejs', {posts: shuffledPosts, messages: req.flash('success')});
+//     } catch (err) {
+//         next(err);
+//     };
+// });
 
-app.get('/gallery', async(req, res, next) => {
+app.get('/', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
         const fineart = await Post.find({class: 'fine art'});
@@ -153,18 +157,21 @@ app.get('/admin/:slug/edit', async(req, res, next) => {
             };
             res.render('editpost', {Post:post});
         } else {
-            
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
         } 
     } catch {
         next(err);
     }
 });
 // edit put route
-app.put('/admin/:slug', async(req, res, next) => {
+app.put('/admin/:slug', upload.single('file'), async(req, res, next) => {
     try {
         if (req.isAuthenticated()) {
             const {slug} = req.params;
             const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
+            updatedPost.image = '/uploads/'+ req.file.filename;
+            await updatedPost.save(); 
             req.flash('success', 'post updated');
             res.redirect('/admin/edit');
         } else {
@@ -189,13 +196,15 @@ app.get('/admin/new', (req, res) => {
     }
 });
 // new post route
-app.post('/admin', async(req, res, next) => {
+app.post('/admin', upload.single('file'), async(req, res, next) => {
     if(req.isAuthenticated()){
         try{
+            console.log('req.file: ', req.file)
             const post = new Post(req.body.post);
+            post.image = '/uploads/'+ req.file.filename; 
             console.log(post);
             await post.save();
-            res.redirect('/gallery');
+            res.redirect('/');
         } catch(err){
         next(err)
         }   
@@ -273,18 +282,6 @@ app.post('/login', passport.authenticate('local', {
     
   });
 
-// app.get('/flash', function(req, res){
-//     // Set a flash message by passing the key, followed by the value, to req.flash().
-//     req.flash('info', 'Flash is back!')
-//     res.redirect('/test');
-//   });
-   
-//   app.get('/test', function(req, res){
-//     // Get an array of flash messages by passing the key to req.flash()
-//     res.render('test', { messages: req.flash('info') });
-//   });
-
-
 app.post('/', async(req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -312,13 +309,28 @@ app.post('/', async(req, res, next) => {
                 console.error('Error sending email:', error);
                 res.status(500).send('An error occurred while sending the email.');
             } else {
-                console.log('Email sent:', info.response);
-                res.send('Thank you for your message!'); // Respond to the client
+                console.log('Email sent');
+                req.flash('success', 'Thank you for your message!'); // Respond to the client
+                res.redirect('/');
             };
         });
     } catch(error) {
         console.log(error);
     };
+});
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page not found', 404));
+});
+
+
+  // Error handling middleware
+  app.use((err, req, res, next) => {
+    // Set a default error status code
+    const statusCode = err.statusCode || 500;
+    
+    // Render an error page or JSON response
+    res.status(statusCode).render('error.ejs', { error: err });
 });
 
 app.listen(3000, () => {

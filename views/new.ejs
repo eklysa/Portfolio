@@ -1,31 +1,28 @@
 <!-- include standard layout -->
 <% layout('../layouts/boilerplate') %>
-<% if (messages) { %>
+
+<% if (messages && messages.length > 0) { %>
     <div class="alert alert-warning flash container-fluid" role="alert">
-    <%= messages %>
-    <% console.log(messages)%>
+      <%= messages %>
     </div>
-  <% } %>
+<% } %>
+
 <div class="container-fluid indexcontent">
     <h1 class="text-center">New post</h1>
     <div class="col-6 offset-3">
-        <form class="mb-5" action="/admin" method="post">
+        <form class="mb-5" action="/admin" method="post", enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id ="title" name = "post[title]" required>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label" for="image">Image URL</label>
                 <input class="form-control" type="text" id ="image" name = "post[image]" required>
-            </div>
-            <!-- <div class="mb-3">
-                <label for="formFile" class="form-label">Image File</label>
-                <input class="form-control" type="file" id="formFile" name="post[img]">
-              </div> -->
-            <!-- <div class="mb-3">
-                <label class="form-label" for="alt">alt image text</label>
-                <input class="form-control" type="text" id ="alt" name = "post[alt]" required>
             </div> -->
+            <div class="mb-3">
+                <label class="form-label" for="file">Image file</label>
+                <input class="form-control-file" type="file" name="file" id="file" required>
+            </div>
             <div class="mb-3">
                 <label class="form-label" for="class">Class</label>
                 <select class="form-select" type = 'text' id ="class" name = "post[class]" required>
