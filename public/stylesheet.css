@@ -29,7 +29,7 @@ body {
 
 
 #newBackground img {
-    max-width: 80%;
+    max-width: 70%;
 }
 
 #newBackground {
@@ -56,7 +56,7 @@ body {
 }
 @media(min-width:576px){
     #newBackground img {
-        max-width: 70%;
+        max-width: 50%;
     }
     #newBackground {
         margin-top: 3em;
