@@ -6,10 +6,8 @@
     <img class="img-fluid" src="images/background_v5.png">
 </div>
 <!-- title -->
-<div class="container-fluid text-center" id="galleryIntro">
+<div class="container-fluid text-center admin">
     <div class="container indexcontent">
-        <!-- <h4 class="mt-5">Illustrations</h4> -->
-        <!-- <p class="mb-5">Here you can find some of my fine art and poster illustrations. If you are interested in a certain bird don't hesitate to let me know! Al illustrations can be bought <span><a href='https://www.etsy.com/shop/HeraldingBirds' target="_blank">here</a></span>.</p> -->
         <img class=" rounded-circle" src="/images/profielfoto.jpg" width="140" height="140" alt="Sylke Angenent" style="opacity:0.8;" id="profilePicture">
         <p class="mb-5">As an illustrator passionate about nature, I use both traditional and digital techniques in my illustrations to visualize the beautiful patterns that can be discovered in bird plumage. If you are interested in a certain bird don't hesitate to let me know! Al illustrations can be bought <span><a href='https://www.etsy.com/shop/HeraldingBirds' target="_blank">here</a></span>.</p>
         <div class="container-fluid justify-content-between">
@@ -28,19 +26,13 @@
     <h5 class="pt-5" id="fineart">Fine Art</h5>
     <hr>
     <div class="container homecontent">
-        <!-- make sure that there is a new row div created for every 3 posts -->
         <div class="row">
-            <% let fine_count = 0; %>
             <% for (let Post of fineart) { %>
                 <div class="col-md-4 col-6  col-xl-3 mb-4">
                     <a class="lightbox" href="#<%=Post.slug%>">
                         <img class="img-fluid index_image" src="<%= Post.image.url%>" alt="<%= Post.alt %>">
                     </a>
                 </div>
-                <!-- <% fine_count++; %>
-                <% if (fine_count % 4 === 0) { %>
-                    </div><div class="row">
-                <% } %> -->
             <% } %>
         </div>
     </div>
@@ -52,17 +44,12 @@
     <div class="container homecontent">
         <!-- make sure that there is a new row div created for every 3 posts -->
         <div class="row">
-            <% let poster_count = 0; %>
             <% for (let Post of posterart) { %>
                 <div class="col-md-4 col-6 col-xl-3 mb-4">
                     <a class="lightbox" href="#<%=Post.slug%>">
                         <img class="img-fluid index_image" src="<%= Post.image.url %>" alt="<%= Post.alt %>">
                     </a>   
                 </div>
-                <!-- <% poster_count++; %>
-                <% if (poster_count % 4 === 0) { %>
-                    </div><div class="row">
-                <% } %> -->
             <% } %>
         </div>
     </div>

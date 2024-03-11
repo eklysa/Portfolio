@@ -21,7 +21,6 @@ const Post = require('./models/posts');
 const Message = require('./models/messages');
 const multer = require('multer');
 const {storage} = require('./cloudinary');
-// const upload = require('./models/upload');
 const upload = multer({ storage })
 const ExpressError = require('./utils/ExpressError');
 
@@ -114,17 +113,9 @@ passport.use(new LocalStrategy(
     }
   });
 
-// routes
-// app.get('/', async(req, res, next) => {
-//     try {
-//         const posts = await Post.find({}).sort({_id: -1});
-//         const shuffledPosts = shuffle(posts);
-//         res.render('home.ejs', {posts: shuffledPosts, messages: req.flash('success')});
-//     } catch (err) {
-//         next(err);
-//     };
-// });
-
+//   ROUTES
+//   -----------------------------------------------------------------------------------------
+// gallery
 app.get('/', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
@@ -135,14 +126,13 @@ app.get('/', async(req, res, next) => {
         next(err);
     };
 });
-
+// contact
 app.get('/contact', (req, res) => {
     res.render('contact.ejs', {messages: req.flash('success')});
 });
-
+// admin
 app.get('/admin', (req, res) => {
     if (req.isAuthenticated()) {
-        // req.flash('success', 'you are logged in');
         res.render('admin.ejs', {messages: req.flash('success')});
     } else {
         req.flash('error', 'You must be logged in');
@@ -296,42 +286,6 @@ app.post('/login', passport.authenticate('local', {
     
   });
 
-// app.post('/', async(req, res, next) => {
-//     const name = req.body.name;
-//     const email = req.body.email;
-//     const message = req.body.message;
-//     console.log(message);
-//     try {
-//         // create email transporter
-//         const transporter = nodemailer.createTransport({
-//             service: 'gmail',
-//             auth: {
-//                 user: process.env.my_email,
-//                 pass: process.env.my_password,
-//             },
-//         });
-//         // create the email
-//         const mailOptions = {
-//             from: email, // from sender
-//             to: process.env.my_email, // to me
-//             subject: 'Contact Form Submission from:'+ name,
-//             text: JSON.stringify(message), // give message
-//         };
-//         // send the email
-//         transporter.sendMail(mailOptions,  (error, info) => {
-//             if (error) { 
-//                 console.error('Error sending email:', error);
-//                 res.status(500).send('An error occurred while sending the email.');
-//             } else {
-//                 console.log('Email sent');
-//                 req.flash('success', 'Thank you for your message!'); // Respond to the client
-//                 res.redirect('/');
-//             };
-//         });
-//     } catch(error) {
-//         console.log(error);
-//     };
-// });
 app.post("/", async(req, res, next) => {
     const newMessage = new Message(req.body.message);
     await newMessage.save();
@@ -371,14 +325,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
 })
-
-// functions
-// Function to shuffle the array
-function shuffle(array) {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  }

@@ -13,17 +13,12 @@
         <div class="container homecontent">
             <!-- make sure that there is a new row div created for every 3 posts -->
             <div class="row">
-                <% let fine_count = 0; %>
                 <% for (let Post of posts) { %>
                     <div class="col-md-4 mb-2">
                         <a href="/admin/<%=Post.slug%>/delete">
                             <img class="img-fluid index_image" src="<%= Post.image.url %>" alt="<%= Post.title %>">
                         </a>
                     </div>
-                    <% fine_count++; %>
-                    <% if (fine_count % 3 === 0) { %>
-                        </div><div class="row">
-                    <% } %>
                 <% } %>
             </div>
         </div>
