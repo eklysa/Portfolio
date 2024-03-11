@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Sylke Angenent">
+        <meta name="description" content="Portfolio of Sylke Angenent, an artist with a healthy obsession for birds, based in the Netherlands.">
         <title>Sylke Angenent Portfolio</title>
 
         <!-- Bootstrap -->
@@ -28,40 +30,12 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        <!-- <script>
-            function updateMarginTop() {
-                const imageHeight = document.getElementById('newBackground').clientHeight;
-                const navbarHeight = document.getElementById('navbar').clientHeight;
-                document.getElementById('arrowdown').style.marginTop = imageHeight - 20 + 'px';
-            }
-            // Add an event listener to the window's resize event
-            window.addEventListener('resize', updateMarginTop);
-            // Call the function initially to set the margin-top when the page loads
-            updateMarginTop();
-        </script> -->
-
-
-    <!-- get height of viewport and center gallery intro -->
-    <!-- <script>
-        function updateGalleryIntroHeight() {
-            const centerHeight = window.innerHeight / 2;
-            const introHeight = document.getElementById('galleryIntro').clientHeight / 2;
-            const navbarHeight = document.getElementById('navbar').clientHeight;
-            // set the galleryintro height equal to window innerheight - navbar height
-            document.getElementById('galleryIntro').style.marginTop = centerHeight - introHeight - navbarHeight + 'px';
-            document.getElementById('galleryIntro').style.marginBottom = centerHeight - introHeight - 50 + 'px';
-        }
-        // Add an event listener to the window's resize event
-        window.addEventListener('resize', updateGalleryIntroHeight);
-        // Call the function initially to set the margin-top when the page loads
-        updateGalleryIntroHeight();
-    </script> -->
     <!-- fix the active navbar link -->
-    <script>
-        $(document).ready(function() {
-            $('a.active').removeClass('active');
-            $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
-        });
-    </script>
+        <script>
+            $(document).ready(function() {
+                $('a.active').removeClass('active');
+                $('a[href="' + location.pathname + '"]').closest('li').addClass('active'); 
+            });
+        </script>
     </body>
 </html>
