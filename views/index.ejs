@@ -34,7 +34,7 @@
             <% for (let Post of fineart) { %>
                 <div class="col-md-4 col-6  col-xl-3 mb-4">
                     <a class="lightbox" href="#<%=Post.slug%>">
-                        <img class="img-fluid index_image" src="<%= Post.image %>" alt="<%= Post.title %>">
+                        <img class="img-fluid index_image" src="<%= Post.image.url%>" alt="<%= Post.title %>">
                     </a>
                 </div>
                 <!-- <% fine_count++; %>
@@ -56,7 +56,7 @@
             <% for (let Post of posterart) { %>
                 <div class="col-md-4 col-6 col-xl-3 mb-4">
                     <a class="lightbox" href="#<%=Post.slug%>">
-                        <img class="img-fluid index_image" src="<%= Post.image %>" alt="<%= Post.title %>">
+                        <img class="img-fluid index_image" src="<%= Post.image.url %>" alt="<%= Post.title %>">
                     </a>   
                 </div>
                 <!-- <% poster_count++; %>
@@ -70,14 +70,14 @@
 <!-- MAKE SURE THAT THE IMAGES ARE COMPRESSED! CURRENTLY USING NORMAL IMAGE-->
 <% for (let Post of fineart) { %> 
     <div class="lightbox-target" id="<%=Post.slug%>">
-        <img src="<%=Post.image%>"> 
+        <img src="<%=Post.image.url%>"> 
         <a class="lightbox-close" href="#fineartheader"></a>
     </div>
 <% } %>
 
 <% for (let Post of posterart) { %> 
     <div class="lightbox-target" id="<%=Post.slug%>">
-        <img src="<%=Post.image%>">
+        <img src="<%=Post.image.url%>">
         <a class="lightbox-close" href="#posterartheader"></a>
     </div>
 <% } %>

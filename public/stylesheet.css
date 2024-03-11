@@ -45,6 +45,12 @@ body {
     padding-top: 40%;
     height: 100vh;
 }
+.admin {
+    position:relative;
+    padding-top: 40%;
+    height: 100vh; 
+}
+
 #contactdiv {
     padding-top: 40%;
     height: 100vh;
@@ -64,6 +70,9 @@ body {
     #galleryIntro {
         padding-top:30%;
     }
+    .admin {
+        padding-top:30%;
+    }
     #contactdiv {
         padding-top:30%;
     }
@@ -73,6 +82,9 @@ body {
 }
 @media(min-width:768px){
     #galleryIntro {
+        padding-top:15%;
+    }
+    .admin {
         padding-top:15%;
     }
     #contactdiv {

@@ -3,3 +3,5 @@ fix the toggle button -check
 extra small screen - decrease space beteen profile picture and text -check
 logo on tab -check
 check if contact form works
+fix file upload
+fix app.listen for deploying

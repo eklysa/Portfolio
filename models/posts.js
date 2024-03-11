@@ -3,9 +3,20 @@ const Schema = mongoose.Schema;
 const slugify = require('slugify');
 const path = require('path');
 
+// const PostSchema = new Schema({
+//   title: String,
+//   image: String,
+//   alt: String,
+//   class: String,
+//   slug: String,
+//   file: String
+// });
 const PostSchema = new Schema({
   title: String,
-  image: String,
+  image: {
+    url: String,
+    filename: String
+  },
   alt: String,
   class: String,
   slug: String,

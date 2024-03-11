@@ -19,7 +19,9 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const Post = require('./models/posts');
 const multer = require('multer');
-const upload = require('./models/upload');
+const {storage} = require('./cloudinary');
+// const upload = require('./models/upload');
+const upload = multer({ storage })
 const ExpressError = require('./utils/ExpressError');
 
 // get the database
@@ -183,7 +185,7 @@ app.put('/admin/:slug', upload.single('file'), async(req, res, next) => {
         if (req.isAuthenticated()) {
             const {slug} = req.params;
             const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
-            updatedPost.image = '/uploads/'+ req.file.filename;
+            updatedPost.image = {url: req.file.url, filename: req.file.filename};
             await updatedPost.save(); 
             req.flash('success', 'post updated');
             res.redirect('/admin/edit');
@@ -208,19 +210,17 @@ app.get('/admin/new', (req, res) => {
         next(err)
     }
 });
-// new post route
 app.post('/admin', upload.single('file'), async(req, res, next) => {
     if(req.isAuthenticated()){
         try{
-            console.log('req.file: ', req.file)
             const post = new Post(req.body.post);
-            post.image = '/uploads/'+ req.file.filename; 
-            console.log(post);
+            post.image = {url: req.file.path, filename: req.file.filename};
             await post.save();
-            res.redirect('/');
+            req.flash('success', 'Successfully added a new image!')
+            res.redirect('/')
         } catch(err){
-        next(err)
-        }   
+            next(err)
+        }
     } else {
         req.flash('error', 'You must be logged in');
         res.redirect('/login')
@@ -346,9 +346,10 @@ app.all('*', (req, res, next) => {
     res.status(statusCode).render('error.ejs', { error: err });
 });
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000');
-});
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`)
+})
 
 // functions
 // Function to shuffle the array
