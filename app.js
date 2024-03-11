@@ -18,6 +18,7 @@ const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const Post = require('./models/posts');
+const Message = require('./models/messages');
 const multer = require('multer');
 const {storage} = require('./cloudinary');
 // const upload = require('./models/upload');
@@ -136,7 +137,7 @@ app.get('/', async(req, res, next) => {
 });
 
 app.get('/contact', (req, res) => {
-    res.render('contact.ejs');
+    res.render('contact.ejs', {messages: req.flash('success')});
 });
 
 app.get('/admin', (req, res) => {
@@ -295,40 +296,60 @@ app.post('/login', passport.authenticate('local', {
     
   });
 
-app.post('/', async(req, res, next) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const message = req.body.message;
-    console.log(message);
+// app.post('/', async(req, res, next) => {
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const message = req.body.message;
+//     console.log(message);
+//     try {
+//         // create email transporter
+//         const transporter = nodemailer.createTransport({
+//             service: 'gmail',
+//             auth: {
+//                 user: process.env.my_email,
+//                 pass: process.env.my_password,
+//             },
+//         });
+//         // create the email
+//         const mailOptions = {
+//             from: email, // from sender
+//             to: process.env.my_email, // to me
+//             subject: 'Contact Form Submission from:'+ name,
+//             text: JSON.stringify(message), // give message
+//         };
+//         // send the email
+//         transporter.sendMail(mailOptions,  (error, info) => {
+//             if (error) { 
+//                 console.error('Error sending email:', error);
+//                 res.status(500).send('An error occurred while sending the email.');
+//             } else {
+//                 console.log('Email sent');
+//                 req.flash('success', 'Thank you for your message!'); // Respond to the client
+//                 res.redirect('/');
+//             };
+//         });
+//     } catch(error) {
+//         console.log(error);
+//     };
+// });
+app.post("/", async(req, res, next) => {
+    const newMessage = new Message(req.body.message);
+    await newMessage.save();
+    req.flash('success', 'Thank you for your message!');
+    res.redirect('/contact');
+});
+
+app.get("/admin/messages", async(req, res, next) => {
     try {
-        // create email transporter
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.my_email,
-                pass: process.env.my_password,
-            },
-        });
-        // create the email
-        const mailOptions = {
-            from: email, // from sender
-            to: process.env.my_email, // to me
-            subject: 'Contact Form Submission from:'+ name,
-            text: JSON.stringify(message), // give message
-        };
-        // send the email
-        transporter.sendMail(mailOptions,  (error, info) => {
-            if (error) { 
-                console.error('Error sending email:', error);
-                res.status(500).send('An error occurred while sending the email.');
-            } else {
-                console.log('Email sent');
-                req.flash('success', 'Thank you for your message!'); // Respond to the client
-                res.redirect('/');
-            };
-        });
-    } catch(error) {
-        console.log(error);
+        if (req.isAuthenticated()) {
+            const Messages = await Message.find({});
+            res.render('messageboard.ejs', {Messages:Messages});
+        } else {
+            req.flash('error', 'You must be logged in');
+            res.redirect('/login');
+        }
+    } catch (err) {
+        next(err);
     };
 });
 

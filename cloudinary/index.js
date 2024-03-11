@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary, 
     params: {
-        folder: 'Portfolio',
+        folder: process.env.CLOUDINARYMAP,
         allowedFormats: ['jpg', 'png', 'jpeg']
     }
 });

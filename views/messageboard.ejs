@@ -1,0 +1,18 @@
+<% layout('../layouts/boilerplate') %>
+
+
+<div class="container-fluid text-center admin">
+    <div class="container indexcontent">
+        <h5 class="pt-5" id="messages">All Messages</h5>
+        <hr>
+        <% for (let Message of Messages) { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><%=Message.name%></h5>
+                    <p class="card-subtitle"><%=Message.email%></p>
+                    <p class="card-body"><%=Message.message%></p>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
