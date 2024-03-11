@@ -14,18 +14,6 @@
                     <label class="form-label" for="file">Image file</label>
                     <input class="form-control-file" type="file" name="file" id="file" required>
                 </div>
-                <!-- <div class="mb-3">
-                    <label class="form-label" for="image">Image URL</label>
-                    <input class="form-control" type="text" id ="image" name = "post[image]" value="<%=Post.image%>" required>
-                </div> -->
-                <!-- <div class="mb-3">
-                    <label for="formFile" class="form-label">Image File</label>
-                    <input class="form-control" type="file" id="formFile" name="post[img]">
-                </div> -->
-                <!-- <div class="mb-3">
-                    <label class="form-label" for="alt">alt image text</label>
-                    <input class="form-control" type="text" id ="alt" name = "post[alt]" required>
-                </div> -->
                 <div class="mb-3">
                     <label class="form-label" for="class">Class</label>
                     <select class="form-select" type = 'text' id ="class" name = "post[class]" required>
@@ -33,6 +21,10 @@
                         <option value="fine art">fine art</option>
                         <option value="poster art">poster art</option>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="alt">Alt text</label>
+                    <input class="form-control" type="text" id="alt" name="post[alt]" value="<%=Post.alt%>" required>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-success">Edit post</button>
