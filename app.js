@@ -92,8 +92,9 @@ passport.use(new LocalStrategy(
     (username, password, done) => {
         const envUsername = process.env.USER;
         const envPassword = process.env.PASSWORD;
+        const userID = process.env.USERID;
         if (username === envUsername && password === envPassword) {
-            return done(null, { id: 'your_user_id', username: envUsername });
+            return done(null, { id: userID, username: envUsername });
         } else {
             return done(null, false, { message: 'Incorrect username or password' });
         }
@@ -106,12 +107,14 @@ passport.use(new LocalStrategy(
   });
   
   passport.deserializeUser((id, done) => {
-    if (id === 'your_user_id') {
-      done(null, { id: 'your_user_id', username: process.env.USERNAME });
+    if (id === process.env.USERID) {
+      done(null, { id: process.env.USERID, username: process.env.USERNAME });
     } else {
       done(null, false);
     }
   });
+
+
 
 //   ROUTES
 //   -----------------------------------------------------------------------------------------
@@ -119,8 +122,8 @@ passport.use(new LocalStrategy(
 app.get('/', async(req, res, next) => {
     try {
         const posts = await Post.find({}).sort({_id: -1});
-        const fineart = await Post.find({class: 'fine art'});
-        const posterart = await Post.find({class: 'poster art'});
+        const fineart = await Post.find({class: 'fine art'}).sort({_id: -1});
+        const posterart = await Post.find({class: 'poster art'}).sort({_id: -1});
         res.render('index.ejs', {posts: posts, fineart:fineart, posterart: posterart});
     } catch(err) {
         next(err);
