@@ -179,7 +179,7 @@ app.put('/admin/:slug', upload.single('file'), async(req, res, next) => {
         if (req.isAuthenticated()) {
             const {slug} = req.params;
             const updatedPost = await Post.findOneAndUpdate({slug}, {...req.body.post}, {new: true});
-            updatedPost.image = {url: req.file.url, filename: req.file.filename};
+            updatedPost.image = {url: req.file.path, filename: req.file.filename};
             await updatedPost.save(); 
             req.flash('success', 'post updated');
             res.redirect('/admin/edit');
